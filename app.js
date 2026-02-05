@@ -1,9 +1,8 @@
-// Import React & ReactDOM from unpkg CDN
-import React from "https://unpkg.com/react@18/umd/react.development.js";
-import ReactDOM from "https://unpkg.com/react-dom@18/umd/react-dom.development.js";
+// Import Preact
+import { h, render } from "https://unpkg.com/preact@10.19.6/dist/preact.module.js";
+import { useState } from "https://unpkg.com/preact@10.19.6/hooks/dist/hooks.module.js";
 
-const { useState } = React;
-
+// UI Component
 function ProbabilityApp() {
   const [trials, setTrials] = useState(1000);
   const [results, setResults] = useState([]);
@@ -21,45 +20,42 @@ function ProbabilityApp() {
   }
 
   return (
-    <div className="max-w-2xl mx-auto mt-10 p-6 bg-white shadow-lg rounded-xl">
-      <h1 className="text-3xl font-bold text-indigo-600 mb-4">
-        Probability Simulator
-      </h1>
+    <div class="max-w-2xl mx-auto mt-10 p-6 bg-white shadow-lg rounded-xl">
+      <h1 class="text-3xl font-bold text-indigo-600 mb-4">Probability Simulator</h1>
 
-      <p className="mb-4 text-gray-700">
-        Compare experimental vs. theoretical probabilities using real simulations.
+      <p class="mb-4 text-gray-700">
+        Run random simulations and compare experimental vs theoretical probability.
       </p>
 
-      <label className="block mb-2 font-semibold">Number of Trials</label>
+      <label class="block mb-2 font-semibold">Number of Trials</label>
       <input
         type="number"
         value={trials}
         min="1"
         max="200000"
-        onChange={(e) => setTrials(Number(e.target.value))}
-        className="border p-2 rounded w-full mb-4"
+        onInput={(e) => setTrials(Number(e.target.value))}
+        class="border p-2 rounded w-full mb-4"
       />
 
       <button
         onClick={runSimulation}
-        className="bg-indigo-600 text-white px-4 py-2 rounded hover:bg-indigo-700 transition"
+        class="bg-indigo-600 text-white px-4 py-2 rounded hover:bg-indigo-700 transition"
       >
         Run Simulation
       </button>
 
-      <canvas id="probChart" className="mt-8"></canvas>
+      <canvas id="probChart" class="mt-8"></canvas>
     </div>
   );
 }
 
+// Chart Renderer
 function renderChart(data, trials) {
   const canvas = document.getElementById("probChart");
 
   if (!canvas) return;
 
-  if (window.probChart) {
-    window.probChart.destroy();
-  }
+  if (window.probChart) window.probChart.destroy();
 
   window.probChart = new Chart(canvas, {
     type: "bar",
@@ -72,7 +68,7 @@ function renderChart(data, trials) {
           backgroundColor: ["#6366f1", "#8b5cf6"],
         },
         {
-          label: "Expected (0.5 / 0.5)",
+          label: "Expected (50/50)",
           data: [trials / 2, trials / 2],
           backgroundColor: ["#c7d2fe", "#ddd6fe"],
         },
@@ -81,6 +77,5 @@ function renderChart(data, trials) {
   });
 }
 
-document.addEventListener("DOMContentLoaded", () => {
-  ReactDOM.createRoot(document.getElementById("root")).render(<ProbabilityApp />);
-});
+// Mount app
+render(h(ProbabilityApp), document.getElementById("app"));
