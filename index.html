@@ -5,25 +5,31 @@
   <meta name="viewport" content="width=device-width, initial-scale=1.0" />
   <title>Probability Simulator</title>
 
+  <!-- Tailwind (100% reliable on GitHub Pages) -->
+  <script src="https://cdn.tailwindcss.com"></script>
+
+  <!-- Chart.js NON-MODULE build (this is the key) -->
+  <script src="https://cdn.jsdelivr.net/npm/chart.js"></script>
+
   <link rel="stylesheet" href="style.css" />
 </head>
 
-<body>
-  <div class="container">
-    <h1>Probability Simulator</h1>
+<body class="bg-gray-100">
+  <div class="container mx-auto max-w-lg bg-white p-6 mt-10 rounded-xl shadow">
+    <h1 class="text-3xl font-bold text-indigo-600 mb-4">Probability Simulator</h1>
 
-    <label for="trials">Number of Trials:</label>
-    <input type="number" id="trials" value="1000" min="1" max="200000" />
+    <label class="block font-semibold mb-2">Number of Trials</label>
+    <input id="trials" type="number" value="1000" min="1" max="200000"
+      class="border p-2 rounded w-full mb-4" />
 
-    <button id="run">Run Simulation</button>
+    <button id="run"
+      class="bg-indigo-600 text-white px-4 py-2 rounded hover:bg-indigo-700 transition">
+      Run Simulation
+    </button>
 
-    <canvas id="chart"></canvas>
+    <canvas id="chart" class="mt-8"></canvas>
   </div>
 
-  <!-- Local Chart.js (IMPORTANT: no CDN issues!) -->
-  <script src="chart.min.js"></script>
-
-  <!-- Your app -->
   <script src="script.js"></script>
 </body>
 </html>
