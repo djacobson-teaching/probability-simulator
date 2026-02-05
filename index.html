@@ -5,19 +5,25 @@
   <meta name="viewport" content="width=device-width, initial-scale=1.0" />
   <title>Probability Simulator</title>
 
-  <!-- Tailwind (works anywhere) -->
-  <script src="https://cdn.tailwindcss.com"></script>
-
-  <!-- Chart.js -->
-  <script src="https://cdn.jsdelivr.net/npm/chart.js"></script>
-
   <link rel="stylesheet" href="style.css" />
 </head>
 
-<body class="bg-gray-100">
-  <div id="app"></div>
+<body>
+  <div class="container">
+    <h1>Probability Simulator</h1>
 
-  <!-- Load the App (note the relative path) -->
-  <script type="module" src="./app.js"></script>
+    <label for="trials">Number of Trials:</label>
+    <input type="number" id="trials" value="1000" min="1" max="200000" />
+
+    <button id="run">Run Simulation</button>
+
+    <canvas id="chart"></canvas>
+  </div>
+
+  <!-- Local Chart.js (IMPORTANT: no CDN issues!) -->
+  <script src="chart.min.js"></script>
+
+  <!-- Your app -->
+  <script src="script.js"></script>
 </body>
 </html>
