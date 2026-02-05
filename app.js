@@ -1,4 +1,8 @@
-import React, { useState } from "https://esm.sh/react@18";
+// Import React & ReactDOM from unpkg CDN
+import React from "https://unpkg.com/react@18/umd/react.development.js";
+import ReactDOM from "https://unpkg.com/react-dom@18/umd/react-dom.development.js";
+
+const { useState } = React;
 
 function ProbabilityApp() {
   const [trials, setTrials] = useState(1000);
@@ -7,9 +11,11 @@ function ProbabilityApp() {
   function runSimulation() {
     let heads = 0;
     let tails = 0;
+
     for (let i = 0; i < trials; i++) {
       Math.random() < 0.5 ? heads++ : tails++;
     }
+
     setResults([heads, tails]);
     renderChart([heads, tails], trials);
   }
@@ -20,13 +26,17 @@ function ProbabilityApp() {
         Probability Simulator
       </h1>
 
+      <p className="mb-4 text-gray-700">
+        Compare experimental vs. theoretical probabilities using real simulations.
+      </p>
+
       <label className="block mb-2 font-semibold">Number of Trials</label>
       <input
         type="number"
         value={trials}
-        onChange={(e) => setTrials(Number(e.target.value))}
         min="1"
         max="200000"
+        onChange={(e) => setTrials(Number(e.target.value))}
         className="border p-2 rounded w-full mb-4"
       />
 
@@ -42,26 +52,27 @@ function ProbabilityApp() {
   );
 }
 
-/* Chart.js rendering */
 function renderChart(data, trials) {
-  const ctx = document.getElementById("probChart");
+  const canvas = document.getElementById("probChart");
+
+  if (!canvas) return;
 
   if (window.probChart) {
     window.probChart.destroy();
   }
 
-  window.probChart = new Chart(ctx, {
+  window.probChart = new Chart(canvas, {
     type: "bar",
     data: {
       labels: ["Heads", "Tails"],
       datasets: [
         {
           label: "Experimental Results",
-          data: data,
+          data,
           backgroundColor: ["#6366f1", "#8b5cf6"],
         },
         {
-          label: "Theoretical (Expected)",
+          label: "Expected (0.5 / 0.5)",
           data: [trials / 2, trials / 2],
           backgroundColor: ["#c7d2fe", "#ddd6fe"],
         },
@@ -70,6 +81,6 @@ function renderChart(data, trials) {
   });
 }
 
-/* Mount React App */
-const root = ReactDOM.createRoot(document.getElementById("root"));
-root.render(<ProbabilityApp />);
+document.addEventListener("DOMContentLoaded", () => {
+  ReactDOM.createRoot(document.getElementById("root")).render(<ProbabilityApp />);
+});
