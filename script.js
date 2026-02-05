@@ -12,9 +12,7 @@ function runSimulation() {
     Math.random() < 0.5 ? heads++ : tails++;
   }
 
-  const data = [heads, tails];
-
-  drawChart(data, trials);
+  drawChart([heads, tails], trials);
 }
 
 function drawChart(data, trials) {
@@ -30,12 +28,12 @@ function drawChart(data, trials) {
         {
           label: "Experimental Results",
           data,
-          backgroundColor: ["#6a44d8", "#8e5cf8"],
+          backgroundColor: ["#6366f1", "#8b5cf6"],
         },
         {
           label: "Expected (50/50)",
           data: [trials / 2, trials / 2],
-          backgroundColor: ["#c5b3ff", "#e2d7ff"],
+          backgroundColor: ["#c7d2fe", "#ddd6fe"],
         },
       ],
     },
