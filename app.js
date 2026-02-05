@@ -1,8 +1,7 @@
-// Import Preact
+// Preact ES modules from unpkg
 import { h, render } from "https://unpkg.com/preact@10.19.6/dist/preact.module.js";
 import { useState } from "https://unpkg.com/preact@10.19.6/hooks/dist/hooks.module.js";
 
-// UI Component
 function ProbabilityApp() {
   const [trials, setTrials] = useState(1000);
   const [results, setResults] = useState([]);
@@ -22,11 +21,6 @@ function ProbabilityApp() {
   return (
     <div class="max-w-2xl mx-auto mt-10 p-6 bg-white shadow-lg rounded-xl">
       <h1 class="text-3xl font-bold text-indigo-600 mb-4">Probability Simulator</h1>
-
-      <p class="mb-4 text-gray-700">
-        Run random simulations and compare experimental vs theoretical probability.
-      </p>
-
       <label class="block mb-2 font-semibold">Number of Trials</label>
       <input
         type="number"
@@ -49,12 +43,9 @@ function ProbabilityApp() {
   );
 }
 
-// Chart Renderer
 function renderChart(data, trials) {
   const canvas = document.getElementById("probChart");
-
   if (!canvas) return;
-
   if (window.probChart) window.probChart.destroy();
 
   window.probChart = new Chart(canvas, {
@@ -77,5 +68,4 @@ function renderChart(data, trials) {
   });
 }
 
-// Mount app
 render(h(ProbabilityApp), document.getElementById("app"));
